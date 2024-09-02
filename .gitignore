@@ -36,3 +36,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.idea/.gitignore
+/.idea/encodings.xml
+/.mvn/jvm.config
+/.mvn/maven.config
+/.idea/misc.xml
+/.idea/vcs.xml
