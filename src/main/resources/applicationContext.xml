@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+            http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="musicBean" class="minchakov.arkadii.spring.ClassicalMusic"/>
+    <context:property-placeholder location="musicPlayer.properties"/>
+
+    <bean id="classicalMusicBean" class="minchakov.arkadii.spring.ClassicalMusic"/>
+    <bean id="rockMusicBean" class="minchakov.arkadii.spring.RockMusic"/>
+    <bean id="rapMusicBean" class="minchakov.arkadii.spring.RapMusic"/>
+
+    <util:list id="musicBean" value-type="minchakov.arkadii.spring.Music">
+        <ref bean="classicalMusicBean"/>
+        <ref bean="rockMusicBean"/>
+        <ref bean="rapMusicBean"/>
+    </util:list>
 
     <bean id="musicPlayerBean" class="minchakov.arkadii.spring.MusicPlayer">
         <constructor-arg ref="musicBean"/>
+        <property name="name" value="${name}"/>
+        <property name="volume" value="${volume}"/>
     </bean>
-
 </beans>
