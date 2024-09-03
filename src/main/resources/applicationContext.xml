@@ -3,6 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="musicBean" class="minchakov.arkadii.spring.RapMusic"/>
+    <bean id="musicBean" class="minchakov.arkadii.spring.ClassicalMusic"/>
+
+    <bean id="musicPlayerBean" class="minchakov.arkadii.spring.MusicPlayer">
+        <constructor-arg ref="musicBean"/>
+    </bean>
 
 </beans>
