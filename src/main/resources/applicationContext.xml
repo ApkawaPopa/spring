@@ -20,7 +20,7 @@
         <ref bean="rapMusicBean"/>
     </util:list>
 
-    <bean id="musicPlayerBean" class="minchakov.arkadii.spring.MusicPlayer">
+    <bean id="musicPlayerBean" class="minchakov.arkadii.spring.MusicPlayer" scope="prototype">
         <constructor-arg ref="musicBean"/>
         <property name="name" value="${name}"/>
         <property name="volume" value="${volume}"/>
