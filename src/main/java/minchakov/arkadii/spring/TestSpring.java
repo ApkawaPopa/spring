@@ -8,21 +8,20 @@ public class TestSpring {
             "applicationContext.xml"
         );
 
-        MusicPlayer player1 = context.getBean("musicPlayerBean", MusicPlayer.class);
-        MusicPlayer player2 = context.getBean("musicPlayerBean", MusicPlayer.class);
+        System.out.println("Я вывожусь до создания ссылки на бин");
 
-        System.out.println("default toString():\n" + player1 + "\n" + player2);
-        System.out.println("equal: " + (player1 == player2));
-        assert player1 != player2;
+        Music rap = context.getBean("rapMusicBean", RapMusic.class);
 
-        System.out.println("\nvolumes: " + player1.getVolume() + " " + player2.getVolume());
-        assert player1.getVolume() == 9;
-        assert player2.getVolume() == 9;
+        for (int i = 0; i < 3; i++) {
+            Music rock = context.getBean("rockMusicBean", RockMusic.class);
+        }
 
-        player2.setVolume(20);
-        System.out.println("volumes: " + player1.getVolume() + " " + player2.getVolume());
-        assert player1.getVolume() == 9;
-        assert player1.getVolume() == 20;
+        System.out.println("Я вывожусь до закрытия контекста");
+
+        Music classical1 = context.getBean("classicalMusicBean", ClassicalMusic.class);
+        Music classical2 = context.getBean("classicalMusicBean", ClassicalMusic.class);
+
+        System.out.println("Ссылки на синглтон-бины, созданные фабричным методом, однинаковые:\n" + classical1 + "\n" + classical2);
 
         context.close();
     }

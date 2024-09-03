@@ -10,9 +10,9 @@
 
     <context:property-placeholder location="musicPlayer.properties"/>
 
-    <bean id="classicalMusicBean" class="minchakov.arkadii.spring.ClassicalMusic"/>
-    <bean id="rockMusicBean" class="minchakov.arkadii.spring.RockMusic"/>
-    <bean id="rapMusicBean" class="minchakov.arkadii.spring.RapMusic"/>
+    <bean id="classicalMusicBean" class="minchakov.arkadii.spring.ClassicalMusic" factory-method="getClassicalMusic"/>
+    <bean id="rockMusicBean" class="minchakov.arkadii.spring.RockMusic" scope="prototype" init-method="init" destroy-method="destroy"/>
+    <bean id="rapMusicBean" class="minchakov.arkadii.spring.RapMusic" init-method="init" destroy-method="destroy"/>
 
     <util:list id="musicBean" value-type="minchakov.arkadii.spring.Music">
         <ref bean="classicalMusicBean"/>
