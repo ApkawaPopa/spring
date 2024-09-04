@@ -8,21 +8,6 @@
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
             http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="musicPlayer.properties"/>
+    <context:component-scan base-package="minchakov.arkadii.spring"/>
 
-    <bean id="classicalMusicBean" class="minchakov.arkadii.spring.ClassicalMusic" factory-method="getClassicalMusic"/>
-    <bean id="rockMusicBean" class="minchakov.arkadii.spring.RockMusic" scope="prototype" init-method="init" destroy-method="destroy"/>
-    <bean id="rapMusicBean" class="minchakov.arkadii.spring.RapMusic" init-method="init" destroy-method="destroy"/>
-
-    <util:list id="musicBean" value-type="minchakov.arkadii.spring.Music">
-        <ref bean="classicalMusicBean"/>
-        <ref bean="rockMusicBean"/>
-        <ref bean="rapMusicBean"/>
-    </util:list>
-
-    <bean id="musicPlayerBean" class="minchakov.arkadii.spring.MusicPlayer" scope="prototype">
-        <constructor-arg ref="musicBean"/>
-        <property name="name" value="${name}"/>
-        <property name="volume" value="${volume}"/>
-    </bean>
 </beans>

@@ -1,16 +1,11 @@
 package minchakov.arkadii.spring;
 
-public class RapMusic implements Music {
-    private void init() {
-        System.out.println("Init!");
-    }
+import org.springframework.stereotype.Component;
 
+@Component("rapMusicBean")
+public class RapMusic implements Music {
     @Override
     public String getSong() {
         return "Slim Shady";
-    }
-
-    private void destroy() {
-        System.out.println("Destroy!");
     }
 }
