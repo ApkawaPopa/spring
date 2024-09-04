@@ -1,5 +1,7 @@
 package minchakov.arkadii.spring;
 
 public interface Music {
-    String getSong();
+    Genre getGenre();
+
+    String getSong(int n);
 }

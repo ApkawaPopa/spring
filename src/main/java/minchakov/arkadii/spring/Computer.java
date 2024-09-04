@@ -16,6 +16,6 @@ public class Computer {
 
     @Override
     public String toString() {
-        return super.toString() + "\nid:" + id + "\nplayer:" + player.play();
+        return super.toString() + "\nid:" + id + "\nplayer:" + player.play(Genre.ROCK);
     }
 }
