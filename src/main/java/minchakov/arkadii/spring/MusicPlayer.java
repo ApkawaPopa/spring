@@ -1,13 +1,22 @@
 package minchakov.arkadii.spring;
 
-public class MusicPlayer {
-    private final Music music;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-    public MusicPlayer(Music music) {
-        this.music = music;
+@Component
+public class MusicPlayer {
+    private final ClassicalMusic classicalMusic;
+    private final RockMusic rockMusic;
+    private final RapMusic rapMusic;
+
+    @Autowired
+    public MusicPlayer(ClassicalMusic classicalMusic, RockMusic rockMusic, RapMusic rapMusic) {
+        this.classicalMusic = classicalMusic;
+        this.rockMusic = rockMusic;
+        this.rapMusic = rapMusic;
     }
 
-    public void play() {
-        System.out.println("Playing: " + music.getSong());
+    public String play() {
+        return "Current playlist: " + classicalMusic.getSong() + ", " + rockMusic.getSong() + ", " + rapMusic.getSong();
     }
 }

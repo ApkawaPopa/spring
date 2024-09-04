@@ -2,7 +2,7 @@ package minchakov.arkadii.spring;
 
 import org.springframework.stereotype.Component;
 
-@Component("rapMusicBean")
+@Component
 public class RapMusic implements Music {
     @Override
     public String getSong() {
