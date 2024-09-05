@@ -1,12 +1,10 @@
 package minchakov.arkadii.spring;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TestSpring {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-            "applicationContext.xml"
-        );
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
         // инит метод классической музыки вызывается только один раз несмотря на три (один в плеере) бина
         // инит метод рока вызывается и перед каждым следующим созданием бина

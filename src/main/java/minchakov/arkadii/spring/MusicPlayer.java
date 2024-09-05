@@ -1,13 +1,7 @@
 package minchakov.arkadii.spring;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import java.util.Random;
 
-@Component
 public class MusicPlayer {
     private final Music music1;
     private final Music music2;
@@ -15,12 +9,11 @@ public class MusicPlayer {
     private final int volume;
     private final String name;
 
-    @Autowired
     public MusicPlayer(
-        @Qualifier("rockMusic") Music music1,
-        @Qualifier("classicalMusic") Music music2,
-        @Value("${musicPlayer.name}") String name,
-        @Value("${musicPlayer.volume}") int volume
+        Music music1,
+        Music music2,
+        String name,
+        int volume
     ) {
         this.music1 = music1;
         this.music2 = music2;

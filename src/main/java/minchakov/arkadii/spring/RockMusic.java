@@ -1,13 +1,8 @@
 package minchakov.arkadii.spring;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-@Component
-@Scope("prototype")
 public class RockMusic implements Music {
     private final String[] songs = new String[]{"Wind Cries Mary", "Владивосток 3000", "Smells Like Teen Spirit"};
 
