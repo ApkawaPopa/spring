@@ -168,3 +168,14 @@ lesson12
 Для контроллера используется аннотация Controller, которая является надмножеством Component
 
 web.xml считывается apache tomcat для конфигурации, а applicationContextMVC - конфигурация спринга
+
+lesson13
+
+Создать пакет config и в нем своего наследника AbstractAnnotationConfigDispatcherServletInitializer
+
+Создать конфигурационный класс спринга с аннотацией Configuration и ComponentScan, а также EnableSpringMVC, т.к. теперь у нас spring-mvc приложение
+Этот класс должен наследоваться от WebMvcConfigurer
+Внедряем applicationContext в конструкторе, а остальное вставляем из файла в видосе, там конфигурация таймлифа
+
+В конфигурации tomcat реализуем второй метод с подстановкой спринг конфига и третий метод с подстановкой префиксного эндпоинта нашего сервлета
+Также добавим зависимость javax servlet-api для AbstractAnnotationConfigDispatcherServletInitializer
