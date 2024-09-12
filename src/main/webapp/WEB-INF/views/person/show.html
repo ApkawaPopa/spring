@@ -5,7 +5,8 @@
     <title>Person information</title>
 </head>
 <body>
-<p th:text="${person.name()}"></p>
-<p th:text="${person.id()}"></p>
+<p th:text="${person.getName()}"></p>
+<p th:text="${person.getId()}"></p>
+<a th:href="@{/people}">Go to all people</a>
 </body>
 </html>

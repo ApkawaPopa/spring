@@ -8,6 +8,7 @@ import java.util.List;
 
 @Component
 public class PersonDAO {
+    private int id = 0;
     private final List<Person> people;
 
     {
@@ -16,7 +17,7 @@ public class PersonDAO {
         String[] names = new String[]{"Tom", "Jack", "Michael", "Lenny", "Sophia"};
 
         for (int i = 0; i < 5; i++) {
-            people.add(new Person(i + 1, names[i]));
+            people.add(new Person(++id, names[i]));
         }
     }
 
@@ -25,6 +26,11 @@ public class PersonDAO {
     }
 
     public Person show(int id) {
-        return people.stream().filter(x -> x.id() == id).findAny().orElse(null);
+        return people.stream().filter(x -> x.getId() == id).findAny().orElse(null);
+    }
+
+    public void save(Person person) {
+        person.setId(++id);
+        people.add(person);
     }
 }
