@@ -21,16 +21,27 @@ public class PersonDAO {
         }
     }
 
-    public List<Person> index() {
+    public List<Person> findAll() {
         return people;
     }
 
-    public Person show(int id) {
+    public Person find(int id) {
         return people.stream().filter(x -> x.getId() == id).findAny().orElse(null);
     }
 
-    public void save(Person person) {
+    public void add(Person person) {
         person.setId(++id);
         people.add(person);
+    }
+
+    public void update(Person updatedPerson) {
+        Person personToUpdate = find(updatedPerson.getId());
+        if (personToUpdate != null) {
+            personToUpdate.setName(updatedPerson.getName());
+        }
+    }
+
+    public void delete(int id) {
+        people.removeIf(p -> p.getId() == id);
     }
 }

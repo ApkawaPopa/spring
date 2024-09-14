@@ -17,13 +17,13 @@ public class PersonController {
 
     @GetMapping
     private String index(Model model) {
-        model.addAttribute("people", personDAO.index());
+        model.addAttribute("people", personDAO.findAll());
         return "person/index";
     }
 
     @GetMapping("/{id}")
     private String show(@PathVariable int id, Model model) {
-        model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("person", personDAO.find(id));
         return "person/show";
     }
 
@@ -34,7 +34,25 @@ public class PersonController {
 
     @PostMapping
     private String insert(@ModelAttribute("person") Person person) {
-        personDAO.save(person);
+        personDAO.add(person);
+        return "redirect:/people";
+    }
+
+    @GetMapping("/{id}/edit")
+    private String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personDAO.find(id));
+        return "person/edit";
+    }
+
+    @PatchMapping("/{id}")
+    private String update(@ModelAttribute("person") Person person) {
+        personDAO.update(person);
+        return "redirect:/people/" + person.getId();
+    }
+
+    @DeleteMapping("/{id}")
+    private String delete(@PathVariable int id) {
+        personDAO.delete(id);
         return "redirect:/people";
     }
 }

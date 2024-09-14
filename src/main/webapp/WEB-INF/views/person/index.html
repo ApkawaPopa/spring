@@ -6,6 +6,7 @@
 </head>
 <body>
 <div th:each="person : ${people}">
+    <!--/*@thymesVar id="person" type="minchakov.arkadii.spring.model.Person"*/-->
     <a th:href="@{/people/{id}(id=${person.getId()})}"
        th:text="${person.getName()}"></a>
 </div>
