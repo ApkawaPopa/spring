@@ -3,58 +3,78 @@ package minchakov.arkadii.spring.dao;
 import minchakov.arkadii.spring.model.Person;
 import org.springframework.stereotype.Component;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Component
 public class PersonDAO {
-    private int id = 0;
-    private final List<Person> people;
+    private static final String URL = "jdbc:postgresql://localhost:5432/spring_db";
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "postgres";
 
-    {
-        Random random = new Random();
+    private static Connection connection;
 
-        people = new ArrayList<>();
+    static {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
-        String[] names = new String[]{"Tom", "Jack", "Michael", "Lenny", "Sophia"};
-        String[] domains = new String[]{"gmail.com", "mail.ru", "internet.ru"};
-
-        for (int i = 0; i < 5; i++) {
-            people.add(
-                new Person(
-                    ++id,
-                    names[i],
-                    random.nextInt(10, 51),
-                    names[i].toLowerCase() + "@" + domains[i % 3]
-                )
-            );
+        try {
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public List<Person> findAll() {
+        List<Person> people = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "select * from person";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                int age = resultSet.getInt("age");
+                String email = resultSet.getString("email");
+
+                Person person = new Person(id, name, age, email);
+                people.add(person);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return people;
     }
 
     public Person find(int id) {
-        return people.stream().filter(x -> x.getId() == id).findAny().orElse(null);
+        return null;
     }
 
     public void add(Person person) {
-        person.setId(++id);
-        people.add(person);
-    }
-
-    public void update(Person updatedPerson) {
-        Person personToUpdate = find(updatedPerson.getId());
-        if (personToUpdate != null) {
-            personToUpdate.setName(updatedPerson.getName());
-            personToUpdate.setAge(updatedPerson.getAge());
-            personToUpdate.setEmail(updatedPerson.getEmail());
+        try {
+            Statement statement = connection.createStatement();
+            String sql = String.format(
+                "insert into Person values (%d, '%s', %d, '%s')",
+                person.getId(),
+                person.getName(),
+                person.getAge(),
+                person.getEmail()
+            );
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
+    public void update(Person updatedPerson) {
+    }
+
     public void delete(int id) {
-        people.removeIf(p -> p.getId() == id);
     }
 }

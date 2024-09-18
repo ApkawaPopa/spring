@@ -285,3 +285,49 @@ lesson20
 Условное отображение делается при помощи th:if="#fields.hasErrors('имя поля')"
 А передача ошибок для отображения делается при помощи th:errors="*{имя поля}"
 Также включим отображение ошибок красным цветом с помощью аттрибута style="color: red"
+
+
+lesson21
+
+DDL (data definition language):
+    create database db_name;
+    drop database db_name;
+    create table table_name(
+        column1 type1,
+        ...,
+        columnN typeN
+    );
+    drop table table_name;
+
+DML (data manipulation language):
+    select * from table_name;
+    insert into table_name(column1, column2) values (value1, value2);
+    insert into table_name values (value1, value2);
+    update table_name set column1=value1, column2=value2 where id=value_id;
+    delete from table_name where id=value_id;
+
+В этом уроке будем менять arraylist на базу данных
+
+Сначала создадим базу данных в pgAdmin и подключимся к ней в идее
+Затем создадим через консоль таблицу Person для людей с колонками id, name, age, email и типами int или varchar
+Вставим в консоли несколько людей в эту таблицу
+
+Нужно вставить зависимости для spring-jdbc и JDBC Driver для бд, а конкретно для PostgreSQL, искать в репозитории
+
+Для подключения к бд нужно указать url бд, username пользователя бд, password этого пользователя
+В PersonDAO нужно открыть Connection и в статическом инициализаторе его инициализировать
+Сначала надо удостовериться, что драйвер находится в оперативной памяти, для этого нужно использовать рефлексию и Class.forName("путь_драйвера")
+Затем можно инициализировать connection, используя url, username и password; с помощью DriverManager.getConnection(url, username, password)
+Ошибки SQL и ненайденного класса драйвера нужно обработать
+
+Statement - объект, который будет содержать запрос, который потом надо будет выполнить, создается он из connection'а
+SQL-запрос пишется в строке, после чего исполняется с помощью statement.executeQuery(запрос) для получения данных и
+statement.executeUpdate(запрос) для изменения таблицы
+Результат запроса записывается в ResultSet, который представляет собой сколько-то строк таблицы
+Чтобы получить очередную строку используется метод resultSet.next(), который возвращает boolean в зависимости от того,
+получилось ли перейти на следующую строку или нет
+Получать значения из строки после перемещения можно с помощью resultSet.get[Int, String, что-то еще(?)]("название_колонки")
+
+Реализуем методы findAll и add
+
+Для
