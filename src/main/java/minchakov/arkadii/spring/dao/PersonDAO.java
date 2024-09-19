@@ -33,6 +33,7 @@ public class PersonDAO {
         List<Person> people = new ArrayList<>();
 
         try {
+            // не нужно переделывать на PreparedStatement, т.к. не используем в запросе данные от пользователя
             Statement statement = connection.createStatement();
             String sql = "select * from person";
             ResultSet resultSet = statement.executeQuery(sql);
@@ -53,28 +54,58 @@ public class PersonDAO {
     }
 
     public Person find(int id) {
-        return null;
+        Person person = null;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from person where id=?");
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                int age = resultSet.getInt("age");
+                String email = resultSet.getString("email");
+                person = new Person(id, name, age, email);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return person;
     }
 
     public void add(Person person) {
         try {
-            Statement statement = connection.createStatement();
-            String sql = String.format(
-                "insert into Person values (%d, '%s', %d, '%s')",
-                person.getId(),
-                person.getName(),
-                person.getAge(),
-                person.getEmail()
-            );
-            statement.executeUpdate(sql);
+            PreparedStatement statement = connection.prepareStatement("insert into person values (10, ?, ?, ?)");
+            statement.setString(1, person.getName());
+            statement.setInt(2, person.getAge());
+            statement.setString(3, person.getEmail());
+            statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void update(Person updatedPerson) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("update person set name=?, age=?, email=? where id=?");
+            statement.setString(1, updatedPerson.getName());
+            statement.setInt(2, updatedPerson.getAge());
+            statement.setString(3, updatedPerson.getEmail());
+            statement.setInt(4, updatedPerson.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void delete(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from person where id=?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
