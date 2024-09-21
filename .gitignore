@@ -46,3 +46,4 @@ build/
 /english.txt
 /.idea/uiDesigner.xml
 /trash.txt
+/src/main/resources/database.properties
