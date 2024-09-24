@@ -4,6 +4,7 @@ import minchakov.arkadii.spring.dao.PersonDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,7 +23,7 @@ public class BatchController {
         return "batch/index";
     }
 
-    @GetMapping("/with_batch")
+    @PostMapping("/with_batch")
     public String withBatch(RedirectAttributes attributes) {
         long begin = System.currentTimeMillis();
         personDAO.batchInsert(personDAO.make1000People());
@@ -33,7 +34,7 @@ public class BatchController {
         return "redirect:/people";
     }
 
-    @GetMapping("/without_batch")
+    @PostMapping("/without_batch")
     public String withoutBatch(RedirectAttributes attributes) {
         long begin = System.currentTimeMillis();
         personDAO.multipleInsert(personDAO.make1000People());
