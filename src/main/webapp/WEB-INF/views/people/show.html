@@ -5,14 +5,15 @@
     <title>Person information</title>
 </head>
 <body>
-    <p th:text="${person.getName()}"></p>
-    <p th:text="${person.getId()}"></p>
-    <p th:text="${person.getAge()}"></p>
-    <p th:text="${person.getEmail()}"></p>
-    <p><a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit this person</a></p>
-    <form th:method="delete" th:action="@{/people/{id}(id=${person.getId()})}">
-        <input type="submit" value="Delete this person">
-    </form>
-    <p><a th:href="@{/people}">Show all people</a></p>
+<p th:text="${person.getName()}"></p>
+<p th:text="${person.getId()}"></p>
+<p th:text="${person.getAge()}"></p>
+<p th:text="${person.getEmail()}"></p>
+<p th:text="${person.getAddress()}"></p>
+<p><a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit this person</a></p>
+<form th:action="@{/people/{id}(id=${person.getId()})}" th:method="delete">
+    <input type="submit" value="Delete this person">
+</form>
+<p><a th:href="@{/people}">Show all people</a></p>
 </body>
 </html>

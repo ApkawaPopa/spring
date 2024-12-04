@@ -17,14 +17,18 @@ public class Person {
     @Email(message = "This is not a correct email")
     private String email;
 
+    @Pattern(regexp = "[A-Z][a-z]+, [A-Z][a-z]+, [0-9]{6}", message = "Address must have format: Country, City, Postcode (6 digits)")
+    private String address;
+
     public Person() {
     }
 
-    public Person(int id, String name, int age, String email) {
+    public Person(int id, String name, int age, String email, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.address = address;
     }
 
     public int getId() {
@@ -57,5 +61,13 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

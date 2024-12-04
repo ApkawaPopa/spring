@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Edit person</title>
+    <meta charset="UTF-8">
+    <title>Edit person</title>
 </head>
 <body>
-    <form th:object="${person}" th:method="patch" th:action="@{/people/{id}(id=${person.getId()})}">
-        <label for="name">Change name</label>
-        <input type="text" id="name" th:field="*{name}">
-        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></p>
-        <br>
+<form th:action="@{/people/{id}(id=${person.getId()})}" th:method="patch" th:object="${person}">
+    <label for="name">Change name</label>
+    <input id="name" th:field="*{name}" type="text">
+    <p style="color: red" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p>
+    <br>
 
-        <label for="age">Change age</label>
-        <input type="number" id="age" th:field="*{age}">
-        <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" style="color: red"></p>
-        <br>
+    <label for="age">Change age</label>
+    <input id="age" th:field="*{age}" type="number">
+    <p style="color: red" th:errors="*{age}" th:if="${#fields.hasErrors('age')}"></p>
+    <br>
 
-        <label for="email">Change email</label>
-        <input type="email" id="email" th:field="*{email}">
-        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></p>
-        <br>
+    <label for="email">Change email</label>
+    <input id="email" th:field="*{email}" type="email">
+    <p style="color: red" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
+    <br>
 
-        <input type="submit" value="Save changes">
-    </form>
+    <label for="address">Address</label>
+    <input id="address" th:field="*{address}" type="text">
+    <p style="color: red" th:errors="*{address}" th:if="${#fields.hasErrors('address')}"></p>
+    <br>
+
+    <input type="submit" value="Save changes">
+</form>
 </body>
 </html>

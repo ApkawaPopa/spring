@@ -39,19 +39,21 @@ public class PersonDAO {
 
     public void add(Person person) {
         jdbcTemplate.update(
-            "insert into person(name, age, email) values (?, ?, ?)",
+            "insert into person(name, age, email, address) values (?, ?, ?, ?)",
             person.getName(),
             person.getAge(),
-            person.getEmail()
+            person.getEmail(),
+            person.getAddress()
         );
     }
 
     public void update(Person person) {
         jdbcTemplate.update(
-            "update person set name=?, age=?, email=? where id=?",
+            "update person set name=?, age=?, email=?, address=? where id=?",
             person.getName(),
             person.getAge(),
             person.getEmail(),
+            person.getAddress(),
             person.getId()
         );
     }
@@ -62,7 +64,7 @@ public class PersonDAO {
 
     public void batchInsert(List<Person> people) {
         jdbcTemplate.batchUpdate(
-            "insert into person values(?, ?, ?, ?)",
+            "insert into person values(?, ?, ?, ?, ?)",
             new BatchPreparedStatementSetter() {
                 @Override
                 public void setValues(PreparedStatement statement, int i) throws SQLException {
@@ -71,6 +73,7 @@ public class PersonDAO {
                     statement.setString(2, person.getName());
                     statement.setInt(3, person.getAge());
                     statement.setString(4, person.getEmail());
+                    statement.setString(5, person.getAddress());
                 }
 
                 @Override
@@ -92,15 +95,26 @@ public class PersonDAO {
         int batchId = random.nextInt(0, Integer.MAX_VALUE);
 
         List<Person> people = new ArrayList<>();
+        String[] countries = {"Russia", "France", "United States"};
+        String[][] cities = {
+            {"Moscow", "Krasnoyarsk", "Belgorod", "Novosibirsk"},
+            {"Paris", "Mougins", "Bougival", "Marsel"},
+            {"New York", "Washington", "Brooklyn", "Texas"}
+        };
         for (int i = 0; i < 1000; i++) {
             int personAge = random.nextInt(120);
+            int country = random.nextInt(countries.length);
+            int city = random.nextInt(cities[country].length);
+            String postcodePrefix = String.format("%03d", random.nextInt(1000));
+            String postcodeSuffix = String.format("%03d", i);
             String suffix = batchId + "_" + i;
             people.add(
                 new Person(
                     random.nextInt(0, Integer.MAX_VALUE),
                     "Person " + suffix,
                     personAge,
-                    "person" + suffix + "@internet.ru"
+                    "person" + suffix + "@internet.ru",
+                    countries[country] + ", " + cities[country][city] + ", " + postcodePrefix + postcodeSuffix
                 )
             );
         }

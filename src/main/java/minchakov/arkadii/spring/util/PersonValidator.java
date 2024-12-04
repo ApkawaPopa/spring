@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Optional;
+
 @Component
 public class PersonValidator implements Validator {
     private final PersonDAO personDAO;
@@ -23,8 +25,11 @@ public class PersonValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+        Person person = (Person) target;
 
-        if (personDAO.find(((Person) target).getEmail()).isPresent()) {
+        Optional<Person> found = personDAO.find(person.getEmail());
+
+        if (found.isPresent() && found.get().getId() != person.getId()) {
             errors.rejectValue("email", "", "This email is already taken.");
         }
     }
