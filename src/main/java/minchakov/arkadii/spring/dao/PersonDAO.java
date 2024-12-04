@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Component
@@ -26,9 +27,14 @@ public class PersonDAO {
         return jdbcTemplate.query("select * from person", new BeanPropertyRowMapper<>(Person.class));
     }
 
-    public Person find(int id) {
+    public Optional<Person> find(int id) {
         return jdbcTemplate.query("select * from person where id=?", new BeanPropertyRowMapper<>(Person.class), id)
-            .stream().findAny().orElse(null);
+            .stream().findAny();
+    }
+
+    public Optional<Person> find(String email) {
+        return jdbcTemplate.query("select * from person where email=?", new BeanPropertyRowMapper<>(Person.class), email)
+            .stream().findAny();
     }
 
     public void add(Person person) {
