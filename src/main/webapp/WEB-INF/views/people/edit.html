@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Edit person</title>
+    <title>Изменение данных человека</title>
 </head>
 <body>
 <form th:action="@{/people/{id}(id=${person.getId()})}" th:method="patch" th:object="${person}">
-    <label for="name">Change name</label>
+    <label for="name">Изменить имя</label>
     <input id="name" th:field="*{name}" type="text">
     <p style="color: red" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p>
     <br>
 
-    <label for="age">Change age</label>
+    <label for="age">Изменить возраст</label>
     <input id="age" th:field="*{age}" type="number">
     <p style="color: red" th:errors="*{age}" th:if="${#fields.hasErrors('age')}"></p>
     <br>
 
-    <label for="email">Change email</label>
+    <label for="email">Изменить электронную почту</label>
     <input id="email" th:field="*{email}" type="email">
     <p style="color: red" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
     <br>
 
-    <label for="address">Address</label>
+    <label for="address">Изменить адрес</label>
     <input id="address" th:field="*{address}" type="text">
     <p style="color: red" th:errors="*{address}" th:if="${#fields.hasErrors('address')}"></p>
     <br>
 
-    <input type="submit" value="Save changes">
+    <input type="submit" value="Сохранить изменения">
 </form>
 </body>
 </html>

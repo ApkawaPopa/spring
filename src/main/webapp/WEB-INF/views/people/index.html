@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>All people</title>
+    <title>Все люди</title>
 </head>
 <body>
-<h1 th:if="${executionTime}" th:text="${executionTime}"></h1>
-<!--/*@thymesVar id="person" type="minchakov.arkadii.spring.model.Person"*/-->
+<h1 th:if="${executionTime}" th:text="'Затраченное время: ' + ${executionTime}"></h1>
 <div th:each="person : ${people}">
     <a th:href="@{/people/{id}(id=${person.getId()})}"
        th:text="${person.getName()}"></a>
 </div>
-<p>Add new person: <a th:href="@{/people/new}">link</a></p>
+<p>Добавить человека: <a th:href="@{/people/new}">ссылка</a></p>
 </body>
 </html>

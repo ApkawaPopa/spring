@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Test batch update</title>
+    <title>Тестирование batch-евого обновления данных</title>
 </head>
 <body>
     <form method="post" th:action="@{/batch/without_batch}">
-        <input type="submit" value="Add 1000 people not using batch">
+        <input type="submit" value="Добавить 1000 людей по отдельности">
     </form>
     <br>
     <form method="post" th:action="@{/batch/with_batch}">
-        <input type="submit" value="Add 1000 people using batch">
+        <input type="submit" value="Добавить 1000 людей batch-ем">
     </form>
 </body>
 </html>

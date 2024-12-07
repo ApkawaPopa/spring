@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Person information</title>
+    <title>Данные человека</title>
 </head>
 <body>
 <p th:text="${person.getName()}"></p>
@@ -10,10 +10,10 @@
 <p th:text="${person.getAge()}"></p>
 <p th:text="${person.getEmail()}"></p>
 <p th:text="${person.getAddress()}"></p>
-<p><a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit this person</a></p>
+<p><a th:href="@{/people/{id}/edit(id=${person.getId()})}">Изменить данные</a></p>
 <form th:action="@{/people/{id}(id=${person.getId()})}" th:method="delete">
-    <input type="submit" value="Delete this person">
+    <input type="submit" value="Удалить человека">
 </form>
-<p><a th:href="@{/people}">Show all people</a></p>
+<p><a th:href="@{/people}">Показать всех людей</a></p>
 </body>
 </html>
