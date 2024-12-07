@@ -12,18 +12,12 @@ public class App {
 
             session.beginTransaction();
 
-            var person1 = session.get(Person.class, 1);
-            person1.setName("Updated name");
-
-            var person2 = session.get(Person.class, 2);
-            if (person2 != null) {
-                session.remove(person2);
+            var people = session.createQuery("from Person where age >= 30", Person.class).getResultList();
+            for (Person person : people) {
+                System.out.println(person.getName());
             }
 
-            var newPerson = new Person("New Person", 40);
-            System.out.println("newPerson.id: " + newPerson.getId());
-            session.persist(newPerson);
-            System.out.println("newPerson.id: " + newPerson.getId());
+            session.createMutationQuery("delete from Person where name like '%name%'").executeUpdate();
 
             session.getTransaction().commit();
         }
