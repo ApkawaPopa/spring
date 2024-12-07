@@ -12,9 +12,13 @@ public class App {
 
             session.beginTransaction();
 
-            var person = session.get(Person.class, 1);
+            var person1 = new Person("name1", 10);
+            var person2 = new Person("name2", 20);
+            var person3 = new Person("name3", 30);
 
-            System.out.printf("Name: %s\nAge: %d\n", person.getName(), person.getAge());
+            session.persist(person1);
+            session.persist(person2);
+            session.persist(person3);
 
             session.getTransaction().commit();
         }
