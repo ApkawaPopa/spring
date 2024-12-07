@@ -12,13 +12,18 @@ public class App {
 
             session.beginTransaction();
 
-            var person1 = new Person("name1", 10);
-            var person2 = new Person("name2", 20);
-            var person3 = new Person("name3", 30);
+            var person1 = session.get(Person.class, 1);
+            person1.setName("Updated name");
 
-            session.persist(person1);
-            session.persist(person2);
-            session.persist(person3);
+            var person2 = session.get(Person.class, 2);
+            if (person2 != null) {
+                session.remove(person2);
+            }
+
+            var newPerson = new Person("New Person", 40);
+            System.out.println("newPerson.id: " + newPerson.getId());
+            session.persist(newPerson);
+            System.out.println("newPerson.id: " + newPerson.getId());
 
             session.getTransaction().commit();
         }
