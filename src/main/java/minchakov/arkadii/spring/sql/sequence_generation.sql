@@ -5,3 +5,5 @@ create table person (
     name varchar(100) not null,
     age int check ( age >= 0 )
 );
+
+create sequence person_id_seq;
