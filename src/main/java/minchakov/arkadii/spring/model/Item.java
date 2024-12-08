@@ -30,7 +30,7 @@ public class Item {
         return "Item{" +
             "id=" + id +
             ", name='" + name + '\'' +
-            ", person='" + person.getName() + '\'' +
+            ", person=" + (person != null ? "'" + person.getName() + "'" : "null") +
             '}';
     }
 

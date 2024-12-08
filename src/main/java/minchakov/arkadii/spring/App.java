@@ -14,17 +14,16 @@ public class App {
 
             session.beginTransaction();
 
-            var person = session.get(Person.class, 3);
+            var person = session.get(Person.class, 2);
+
+            session.remove(person);
 
             for (var item : person.getItems()) {
-                session.remove(item);
+                System.out.println("До ручной актуализации: " + item);
+                item.setPerson(null);
+                System.out.println("После: " + item);
+                System.out.println();
             }
-
-            System.out.println("Поле с вещами человека после удаления их всех: " + person.getItems());
-
-            person.getItems().clear();
-
-            System.out.println("После ручной очистки: " + person.getItems());
 
             session.getTransaction().commit();
         }
