@@ -4,6 +4,9 @@ import minchakov.arkadii.spring.model.Item;
 import minchakov.arkadii.spring.model.Person;
 import org.hibernate.cfg.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class App {
     public static void main(String[] args) {
         var configuration = new Configuration().addAnnotatedClass(Person.class).addAnnotatedClass(Item.class);
@@ -13,19 +16,14 @@ public class App {
 
             session.beginTransaction();
 
-            var person = session.get(Person.class, 1);
+            var person = new Person("Аркадий", 21);
 
-            System.out.println("До добавления новой вещи: " + person);
+            var item = new Item("Курс по Spring", person);
 
-            var item = new Item("Bomb", person);
+            person.setItems(new ArrayList<>(List.of(item)));
 
+            session.persist(person);
             session.persist(item);
-
-            System.out.println("После добавления новой вещи: " + person);
-
-            person.getItems().add(item);
-
-            System.out.println("После ручного обновления items: " + person);
 
             session.getTransaction().commit();
         }
