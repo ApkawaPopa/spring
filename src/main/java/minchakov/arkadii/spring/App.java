@@ -13,8 +13,19 @@ public class App {
 
             session.beginTransaction();
 
-            var item = session.get(Item.class, 1);
-            System.out.println(item.getPerson());
+            var person = session.get(Person.class, 1);
+
+            System.out.println("До добавления новой вещи: " + person);
+
+            var item = new Item("Bomb", person);
+
+            session.persist(item);
+
+            System.out.println("После добавления новой вещи: " + person);
+
+            person.getItems().add(item);
+
+            System.out.println("После ручного обновления items: " + person);
 
             session.getTransaction().commit();
         }
