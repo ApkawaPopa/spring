@@ -2,11 +2,9 @@ package minchakov.arkadii.spring.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
-@Table(name = "person")
-public class Person {
+@Table(name = "item")
+public class Item {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,27 +13,24 @@ public class Person {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "age")
-    private int age;
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person person;
 
-    @OneToMany(mappedBy = "person")
-    private List<Item> items;
-
-    public Person() {
+    public Item() {
     }
 
-    public Person(String name, int age) {
+    public Item(String name, Person person) {
         this.name = name;
-        this.age = age;
+        this.person = person;
     }
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "Item{" +
             "id=" + id +
             ", name='" + name + '\'' +
-            ", age=" + age +
-            ", items=" + items +
+            ", person='" + person.getName() + '\'' +
             '}';
     }
 
@@ -55,19 +50,11 @@ public class Person {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }
